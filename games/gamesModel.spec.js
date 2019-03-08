@@ -11,7 +11,7 @@ describe('Games Model', () => {
     it('should get all games', async () => {
         const list = await games.getAll();
 
-        expect(list.length).toBe(1);
+        expect(list.length).toBe(0);
     });
 
     it('should insert new game', async () => {
