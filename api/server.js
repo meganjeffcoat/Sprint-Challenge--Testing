@@ -15,6 +15,15 @@ server.get('/games', async (req, res) => {
     }
 });
 
+server.get('/games/:id', async (req, res) => {
+    try {
+        const game = await games.findById(req.params.id);
+        res.status(200).json(game);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 server.post('/games', async (req, res) => {
     try {
         const gameData = req.body;

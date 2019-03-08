@@ -30,6 +30,15 @@ describe('route handlers', () => {
         });
     });
 
+    describe('GET /games/:id', () => {
+        
+        it('should get by id', async () => {
+            const res = await request(server).get('/games/1');
+
+            expect(res.status).toBe(200);
+        });
+    });
+
     describe('POST /games', () => {
         
         it('responds with 201 when body is correct', async () => {
