@@ -31,17 +31,6 @@ describe('route handlers', () => {
     });
 
     describe('POST /games', () => {
-
-        it('should make a post to /games ', async () => {
-            game = {
-                title: 'Donkey Kong Jr',
-                genre: 'Platformer',
-                releaseYear: 1982
-            }
-            const res = await request(server).post('/games').send(game);
-
-            expect(res.body.games[0]).toEqual(game);
-        });
         
         it('responds with 201 when body is correct', async () => {
             const body = { title: 'Donkey Kong', genre: 'Platformer' };
@@ -50,8 +39,15 @@ describe('route handlers', () => {
             expect(res.status).toBe(201);
         });
 
-        it('responds with 422 when body is missing data', async () => {
+        it('responds with 422 when body is missing all data', async () => {
             const body = {};
+            const res = await request(server).post('/games').send(body);
+
+            expect(res.status).toBe(422);
+        });
+
+        it('responds with 422 when missing title', async () => {
+            const body = { title: '', genre: 'Arcade'};
             const res = await request(server).post('/games').send(body);
 
             expect(res.status).toBe(422);
