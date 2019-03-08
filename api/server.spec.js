@@ -29,4 +29,32 @@ describe('route handlers', () => {
             expect(res.body).toEqual([]);
         });
     });
+
+    describe('POST /games', () => {
+
+        it('should make a post to /games ', async () => {
+            game = {
+                title: 'Donkey Kong Jr',
+                genre: 'Platformer',
+                releaseYear: 1982
+            }
+            const res = await request(server).post('/games').send(game);
+
+            expect(res.body.games[0]).toEqual(game);
+        });
+        
+        it('responds with 201 when body is correct', async () => {
+            const body = { title: 'Donkey Kong', genre: 'Platformer' };
+            const res = await request(server).post('/games').send(body);
+
+            expect(res.status).toBe(201);
+        });
+
+        it('responds with 422 when body is missing data', async () => {
+            const body = {};
+            const res = await request(server).post('/games').send(body);
+
+            expect(res.status).toBe(422);
+        });
+    });
 });
