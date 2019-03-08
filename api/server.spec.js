@@ -53,4 +53,13 @@ describe('route handlers', () => {
             expect(res.status).toBe(422);
         });
     });
+
+    describe('DELETE /games/:id', () => {
+        
+        it('should respond with code 200 when game is deleted', async () => {
+            const res = await request(server).delete('/games/:id');
+
+            expect(res.status).toBe(200);
+        });
+    });
 });

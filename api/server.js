@@ -8,8 +8,8 @@ server.use(express.json());
 
 server.get('/games', async (req, res) => {
     try {
-        const rows = await games.getAll();
-        res.status(200).json(rows);
+        const game = await games.getAll();
+        res.status(200).json(game);
     } catch (err) {
         res.status(500).json({ error: 'No games available'});
     }
@@ -28,6 +28,15 @@ server.post('/games', async (req, res) => {
         res.status(500).json({ error: 'No games available' });
     }
 });
+
+server.delete('/games/:id', async (req, res) => {
+    try {
+        const count = await games.remove(req.params.id);
+        res.status(200).json({ message: 'game deleted', count});
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
 
 
 
